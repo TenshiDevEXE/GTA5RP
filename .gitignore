@@ -1,0 +1,7 @@
+.kilo/
+bin/
+obj/
+*.user
+*.suo
+logs/
+scripts/GTA5RP/*.db

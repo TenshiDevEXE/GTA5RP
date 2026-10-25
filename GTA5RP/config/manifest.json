@@ -1,0 +1,11 @@
+{
+  "name": "GTA5RP",
+  "version": "0.1.0",
+  "subsystems": [
+    { "name": "Persistence", "assembly": "GTA5RP.Persistence.dll", "type": "GTA5RP.Persistence.PersistenceSubsystem" },
+    { "name": "Economy", "assembly": "GTA5RP.Economy.dll", "type": "GTA5RP.Economy.EconomySubsystem" },
+    { "name": "Environment", "assembly": "GTA5RP.Environment.dll", "type": "GTA5RP.Environment.EnvironmentSubsystem" },
+    { "name": "UI", "assembly": "GTA5RP.UI.dll", "type": "GTA5RP.UI.UISubsystem" }
+  ],
+  "installPath": "GTA V/scripts/GTA5RP/"
+}
