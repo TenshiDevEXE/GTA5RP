@@ -32,6 +32,9 @@ Modular Roleplay environment for GTA V Single Player (offline), built on ScriptH
 - WantedSystem custom hook (decay/spawn placeholder).
 - SpawnService for vehicles.
 
+## UI
+- UISubsystem scaffold with 1s tick budget; HUD/menus placeholder (LemonUI integration pending).
+
 ## Install
 
 Copy built assemblies to `GTA V/scripts/GTA5RP/`.
