@@ -42,7 +42,7 @@ namespace GTA5RP.Environment
             try
             {
                 int w = Game.Player.WantedLevel;
-                if (w > 0) Game.Player.WantedLevel = Math.Max(0, w - 0); // decay handled natively; placeholder for custom logic
+                if (w > 0) Game.Player.WantedLevel = w - 1 >= 0 ? w - 1 : 0;
             }
             catch { }
         }

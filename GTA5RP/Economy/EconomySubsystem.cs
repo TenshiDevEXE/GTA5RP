@@ -24,6 +24,12 @@ namespace GTA5RP.Economy
 
         public void Tick()
         {
+            try
+            {
+                if (Game.IsKeyPressed(Keys.F6)) { Jobs.StartJob("Delivery", 0); GTA.UI.Notification.Show("~g~Delivery started"); System.Threading.Thread.Sleep(200); }
+                if (Game.IsKeyPressed(Keys.F7)) { int p = Jobs.StopJob("Delivery"); GTA.UI.Notification.Show("~g~Payout: $" + p); System.Threading.Thread.Sleep(200); }
+            }
+            catch { }
             if ((DateTime.UtcNow - _lastTick).TotalSeconds < 5) return;
             _lastTick = DateTime.UtcNow;
             try { Game.Player.Money = Service.Money; } catch { }
