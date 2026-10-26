@@ -21,20 +21,25 @@ namespace GTA5RP.Main
         {
             // Manifest-driven: each subsystem ships manifest.json listing assembly + type.
             // Here we register built-in subsystems in priority order.
-            var order = new[] { "Persistence", "Economy", "Environment", "UI" };
-            foreach (var name in order)
+            var types = new[]
+            {
+                typeof(GTA5RP.Persistence.PersistenceSubsystem),
+                typeof(GTA5RP.Economy.EconomySubsystem),
+                typeof(GTA5RP.Environment.EnvironmentSubsystem),
+                typeof(GTA5RP.UI.UISubsystem)
+            };
+            foreach (var t in types)
             {
                 try
                 {
-                    var type = Type.GetType("GTA5RP." + name + "." + name + "Subsystem, GTA5RP." + name);
-                    if (type == null) continue;
-                    var sub = (ISubsystem)Activator.CreateInstance(type);
+                    var sub = (ISubsystem)Activator.CreateInstance(t);
                     sub.Init(_services);
                     _loaded.Add(sub);
                 }
                 catch (Exception e)
                 {
-                    GTA.UI.Notification.Show("~r~Subsystem failed: " + name + " - " + e.Message);
+                    GTA.UI.Notification.Show("~r~Subsystem failed: " + t.Name + " - " + e.Message);
+                    GTA5RP.Core.Logger.Error("Subsystem failed " + t.Name, e);
                 }
             }
         }
