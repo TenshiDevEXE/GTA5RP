@@ -35,6 +35,8 @@ namespace GTA5RP.Environment
     public class WantedSystem
     {
         private DateTime _last = DateTime.UtcNow;
+        private DateTime _lastSpawn = DateTime.UtcNow;
+        private int _lastLevel = 0;
         public void Tick()
         {
             if ((DateTime.UtcNow - _last).TotalSeconds < 5) return;
@@ -42,7 +44,24 @@ namespace GTA5RP.Environment
             try
             {
                 int w = Game.Player.WantedLevel;
-                if (w > 0) Game.Player.WantedLevel = w - 1 >= 0 ? w - 1 : 0;
+                if (w > 0 && w != _lastLevel)
+                {
+                    _lastLevel = w;
+                }
+                if (w > 0 && (DateTime.UtcNow - _lastSpawn).TotalSeconds >= 30)
+                {
+                    _lastSpawn = DateTime.UtcNow;
+                    var pos = Game.Player.Character.Position + new GTA.Math.Vector3(10, 0, 0);
+                    World.CreatePed(PedHash.Cop01SMY, pos);
+                }
+                if (w > 0)
+                {
+                    // decay one level every 30s
+                    if ((DateTime.UtcNow - _lastSpawn).TotalSeconds >= 30 && w > 0)
+                    {
+                        Game.Player.WantedLevel = w - 1;
+                    }
+                }
             }
             catch { }
         }
