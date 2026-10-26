@@ -27,6 +27,11 @@ Modular Roleplay environment for GTA V Single Player (offline), built on ScriptH
 - EconomyService (deposit/withdraw/set) synced to player money every 5s.
 - JobManager with Delivery, Mechanic, Emergency, Illegal jobs; payouts, cooldowns, reputation gating.
 
+## Environment
+- NeedsSystem (hunger/thirst/fatigue) decays over time with health/stamina effects.
+- WantedSystem custom hook (decay/spawn placeholder).
+- SpawnService for vehicles.
+
 ## Install
 
 Copy built assemblies to `GTA V/scripts/GTA5RP/`.
