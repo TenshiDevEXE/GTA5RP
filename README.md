@@ -23,6 +23,10 @@ Modular Roleplay environment for GTA V Single Player (offline), built on ScriptH
 - SQLite at `scripts/GTA5RP/player.db` with versioned migrations.
 - Autosave every 60s plus on dispose; loads position/money on start.
 
+## Economy
+- EconomyService (deposit/withdraw/set) synced to player money every 5s.
+- JobManager with Delivery, Mechanic, Emergency, Illegal jobs; payouts, cooldowns, reputation gating.
+
 ## Install
 
 Copy built assemblies to `GTA V/scripts/GTA5RP/`.
