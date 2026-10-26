@@ -1,46 +1,49 @@
 using System;
 using GTA;
+using LemonUI;
+using LemonUI.Menus;
 using GTA5RP.Core.Contracts;
-using GTA5RP.Economy;
-using GTA5RP.Environment;
 
 namespace GTA5RP.UI
 {
     public class UISubsystem : ISubsystem
     {
-        private DateTime _last = DateTime.UtcNow;
-        private bool _menuOpen = false;
-        private Keys _toggle = Keys.F5;
-        private EconomySubsystem _econ;
-        private EnvironmentSubsystem _env;
+        private ObjectPool _pool;
+        private NativeMenu _mainMenu;
+        private bool _visible = false;
+        private DateTime _lastKey = DateTime.MinValue;
 
         public string Name => "UI";
         public int Version => 1;
 
         public void Init(IServiceProvider services)
         {
-            try { _econ = services is GTA5RP.Core.DI.ServiceRegistry r && r.TryGet(out EconomySubsystem e) ? e : null; } catch { }
+            _pool = new ObjectPool();
+            _mainMenu = new NativeMenu("GTA5RP", "Menu principal", "Selecciona una opcion");
+            _mainMenu.Add(new NativeItem("Dinero", "Muestra tu dinero actual"));
+            _mainMenu.Add(new NativeItem("Trabajos", "Iniciar/terminar trabajos"));
+            _mainMenu.Add(new NativeItem("Necesidades", "Estado de hambre/sed/fatiga"));
+            _pool.Add(_mainMenu);
         }
 
         public void Tick()
         {
             try
             {
-                if (Game.IsKeyPressed(_toggle))
+                if (Game.IsKeyPressed(Keys.F5) && (DateTime.UtcNow - _lastKey).TotalMilliseconds > 300)
                 {
-                    _menuOpen = !_menuOpen;
-                    GTA.UI.Notification.Show(_menuOpen ? "~g~Menu abierto" : "~r~Menu cerrado");
-                    System.Threading.Thread.Sleep(200);
+                    _lastKey = DateTime.UtcNow;
+                    _visible = !_visible;
+                    if (_visible) _mainMenu.Visible = true; else _mainMenu.Visible = false;
                 }
-                if (_menuOpen && (DateTime.UtcNow - _last).TotalSeconds >= 3)
-                {
-                    _last = DateTime.UtcNow;
-                    GTA.UI.Notification.Show("Dinero: $" + Game.Player.Money);
-                }
+                _pool.Process();
             }
-            catch { }
+            catch (Exception e) { GTA.UI.Notification.Show("~r~UI err: " + e.Message); }
         }
 
-        public void Dispose() { }
+        public void Dispose()
+        {
+            try { if (_mainMenu != null) _mainMenu.Visible = false; } catch { }
+        }
     }
 }

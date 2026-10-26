@@ -9,7 +9,7 @@ Modular Roleplay environment for GTA V Single Player (offline), built on ScriptH
 - `GTA5RP/Persistence` — player save (SQLite/JSON)
 - `GTA5RP/Economy` — jobs and money flow
 - `GTA5RP/Environment` — needs, wanted level, spawning
-- `GTA5RP/UI` — HUD and menus
+- `GTA5RP/UI` — HUD and menus (LemonUI)
 - `GTA5RP/Tests` — unit tests scaffold
 - `GTA5RP/config/manifest.json` — subsystem load order
 
@@ -38,7 +38,9 @@ Modular Roleplay environment for GTA V Single Player (offline), built on ScriptH
 
 ## UI
 
-- Keybinds: F5 toggle menu; HUD notifications for money and job status.
+- LemonUI ObjectPool + NativeMenu (F5 toggle).
+- Items: Dinero, Trabajos, Necesidades.
+- Keybinds: F5 menu, F6 start delivery, F7 complete/payout.
 
 ## Tests
 
